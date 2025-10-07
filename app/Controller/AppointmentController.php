@@ -60,7 +60,6 @@ class AppointmentController extends AbstractController {
         $appointment->doctor_name = $data['doctor_name'] ?? '';
         $appointment->specialization = $data['specialization'] ?? '';
         $appointment->date_time = $data['date_time'];
-        $appointment->status = 'scheduled'; // по умолчанию — назначена
         $appointment->save();
 
         return $response->json(['message' => 'Запись успешно создана', 'data' => $appointment]);
@@ -99,8 +98,10 @@ class AppointmentController extends AbstractController {
      * GET /appointments/patient/{patient_id}
      * Получить все записи конкретного пациента
      */
-    public function byPatient(int $patient_id, ResponseInterface $response)
+    public function byPatient(RequestInterface $request, ResponseInterface $response)
     {
+        $patient_id = (int) $request->input('patient_id');
+
         $appointments = Appointment::query()
             ->where('patient_id', $patient_id)
             ->orderBy('date_time', 'asc')
@@ -117,8 +118,10 @@ class AppointmentController extends AbstractController {
      * PUT /appointments/{id}/cancel
      * Отменить запись
      */
-    public function cancel(int $id, ResponseInterface $response)
+    public function cancel(RequestInterface $request    , ResponseInterface $response)
     {
+        $id = (int) $request->input('id');
+
         $appointment = Appointment::query()->find($id);
         if (!$appointment) {
             return $response->json(['message' => 'Запись не найдена'], 404);
@@ -128,7 +131,6 @@ class AppointmentController extends AbstractController {
             return $response->json(['message' => 'Запись уже отменена'], 400);
         }
 
-        $appointment->status = 'cancelled';
         $appointment->save();
 
         return $response->json(['message' => 'Запись отменена', 'data' => $appointment]);

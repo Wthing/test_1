@@ -25,10 +25,20 @@ class Appointment extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected array $fillable = [];
+    protected array $fillable = [
+        'patient_id',
+        'doctor_name',
+        'specialization',
+        'date_time',
+    ];
 
     /**
      * The attributes that should be cast to native types.
      */
     protected array $casts = ['id' => 'integer', 'patient_id' => 'integer', 'created_at' => 'datetime', 'updated_at' => 'datetime'];
+
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class, 'patient_id', 'id');
+    }
 }

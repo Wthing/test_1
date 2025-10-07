@@ -60,8 +60,10 @@ class PatientController extends AbstractController {
     }
 
 
-    public function show(int $id, ResponseInterface $response)
+    public function show(RequestInterface $request, ResponseInterface $response)
     {
+        $id = (int) $request->input('id');
+        
         $patient = Patient::query()->find($id);
         if (!$patient) {
             return $response->json(['message' => 'Пациент не найден'], 404);
@@ -70,8 +72,10 @@ class PatientController extends AbstractController {
         return $response->json($patient);
     }
 
-    public function update(int $id, RequestInterface $request, ResponseInterface $response)
+    public function update(RequestInterface $request, ResponseInterface $response)
     {
+        $id = (int) $request->input('id');
+
         $patient = Patient::query()->find($id);
         if (!$patient) {
             return $response->json(['message' => 'Пациент не найден'], 404);
