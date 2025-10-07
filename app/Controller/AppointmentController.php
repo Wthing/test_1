@@ -17,7 +17,7 @@ class AppointmentController extends AbstractController {
      * POST /appointments
      * Создать новую запись на приём
      */
-    public function store(RequestInterface $request, ResponseInterface $response)
+    public function create(RequestInterface $request, ResponseInterface $response)
     {
         $data = $request->all();
 
@@ -69,7 +69,7 @@ class AppointmentController extends AbstractController {
      * GET /appointments
      * Получить список записей с фильтрацией и пагинацией
      */
-    public function index(RequestInterface $request, ResponseInterface $response)
+    public function getByDoctorNameOrSpecialization(RequestInterface $request, ResponseInterface $response)
     {
         $query = Appointment::query()->with('patient');
 
@@ -98,7 +98,7 @@ class AppointmentController extends AbstractController {
      * GET /appointments/patient/{patient_id}
      * Получить все записи конкретного пациента
      */
-    public function byPatient(RequestInterface $request, ResponseInterface $response)
+    public function getByPatientId(RequestInterface $request, ResponseInterface $response)
     {
         $patient_id = (int) $request->input('patient_id');
 
@@ -118,7 +118,7 @@ class AppointmentController extends AbstractController {
      * PUT /appointments/{id}/cancel
      * Отменить запись
      */
-    public function cancel(RequestInterface $request    , ResponseInterface $response)
+    public function delete(RequestInterface $request    , ResponseInterface $response)
     {
         $id = (int) $request->input('id');
 

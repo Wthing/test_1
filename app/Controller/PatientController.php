@@ -15,7 +15,7 @@ use Hyperf\DbConnection\Db;
 
 #[AutoController]
 class PatientController extends AbstractController {
-    public function store(RequestInterface $request, ResponseInterface $response)
+    public function create(RequestInterface $request, ResponseInterface $response)
     {
         $data = $request->all();
         var_dump($data);
@@ -38,7 +38,7 @@ class PatientController extends AbstractController {
         ]);
     }
 
-    public function index(RequestInterface $request, ResponseInterface $response)
+    public function getByName(RequestInterface $request, ResponseInterface $response)
     {
         $query = Patient::query();
 
@@ -60,7 +60,7 @@ class PatientController extends AbstractController {
     }
 
 
-    public function show(RequestInterface $request, ResponseInterface $response)
+    public function getById(RequestInterface $request, ResponseInterface $response)
     {
         $id = (int) $request->input('id');
         
@@ -91,7 +91,7 @@ class PatientController extends AbstractController {
         return $response->json(['message' => 'Данные пациента обновлены', 'data' => $patient]);
     }
 
-    public function destroy(RequestInterface $request, ResponseInterface $response)
+    public function delete(RequestInterface $request, ResponseInterface $response)
     {
         $id = (int) $request->input('id');
         
