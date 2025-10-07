@@ -1,63 +1,96 @@
-# Introduction
+# Patient Appointment Management System (Hyperf PHP 8.3)
 
-This is a skeleton application using the Hyperf framework. This application is meant to be used as a starting place for those looking to get their feet wet with Hyperf Framework.
+A backend application built using **Hyperf Framework**, **PHP 8.3**, and **MySQL** for managing patient appointments.  
+The project supports **Swagger documentation**, **database migrations**, and automatic server reloading during development.
 
-# Requirements
+---
 
-Hyperf has some requirements for the system environment, it can only run under Linux and Mac environment, but due to the development of Docker virtualization technology, Docker for Windows can also be used as the running environment under Windows.
+## Requirements
 
-The various versions of Dockerfile have been prepared for you in the [hyperf/hyperf-docker](https://github.com/hyperf/hyperf-docker) project, or directly based on the already built [hyperf/hyperf](https://hub.docker.com/r/hyperf/hyperf) Image to run.
+- PHP **8.3+**
+- MySQL **8.0+**
+- Composer **2.0+**
+- [Swoole Extension](https://www.swoole.co.uk/docs/get-started/installation)
 
-When you don't want to use Docker as the basis for your running environment, you need to make sure that your operating environment meets the following requirements:  
+---
 
- - PHP >= 8.1
- - Any of the following network engines
-   - Swoole PHP extension >= 5.0，with `swoole.use_shortname` set to `Off` in your `php.ini`
-   - Swow PHP extension >= 1.3
- - JSON PHP extension
- - Pcntl PHP extension
- - OpenSSL PHP extension （If you need to use the HTTPS）
- - PDO PHP extension （If you need to use the MySQL Client）
- - Redis PHP extension （If you need to use the Redis Client）
- - Protobuf PHP extension （If you need to use the gRPC Server or Client）
+## Installation
 
-# Installation using Composer
-
-The easiest way to create a new Hyperf project is to use [Composer](https://getcomposer.org/). If you don't have it already installed, then please install as per [the documentation](https://getcomposer.org/download/).
-
-To create your new Hyperf project:
-
+### 1. Install Swoole
 ```bash
-composer create-project hyperf/hyperf-skeleton path/to/install
+pecl install swoole
 ```
 
-If your development environment is based on Docker you can use the official Composer image to create a new Hyperf project:
-
+### 2. Clone the repository
 ```bash
-docker run --rm -it -v $(pwd):/app composer create-project --ignore-platform-reqs hyperf/hyperf-skeleton path/to/install
+git clone https://github.com/Wthing/test_1.git
+cd test_1
 ```
 
-# Getting started
-
-Once installed, you can run the server immediately using the command below.
-
+### 3. Install dependencies
 ```bash
-cd path/to/install
-php bin/hyperf.php start
+composer install
 ```
 
-Or if in a Docker based environment you can use the `docker-compose.yml` provided by the template:
-
+### 4. Create the `.env` file  
+Copy `.env-example` and rename it to `.env`, then fill in your database and app configuration:
 ```bash
-cd path/to/install
-docker-compose up
+cp .env-example .env
 ```
 
-This will start the cli-server on port `9501`, and bind it to all network interfaces. You can then visit the site at `http://localhost:9501/` which will bring up Hyperf default home page.
+Example:
+```
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=test_1
+DB_USERNAME=root
+DB_PASSWORD=your_password
+```
 
-## Hints
+---
 
-- A nice tip is to rename `hyperf-skeleton` of files like `composer.json` and `docker-compose.yml` to your actual project name.
-- Take a look at `config/routes.php` and `app/Controller/IndexController.php` to see an example of a HTTP entrypoint.
+## Database Migration
 
-**Remember:** you can always replace the contents of this README.md file to something that fits your project description.
+Run all database migrations with:
+```bash
+php bin/hyperf.php migrate
+```
+
+---
+
+## Development Tools
+
+To automatically restart the project when files change:
+```bash
+composer require hyperf/watcher --dev
+```
+
+Then run the watcher:
+```bash
+php bin/hyperf.php server:watch
+```
+
+---
+
+## API Documentation (Swagger)
+
+After starting the server, open the Swagger UI in your browser:
+```
+http://localhost:9501/swagger/index.html
+```
+
+---
+
+## Notes
+
+- All routes are auto-documented using `Hyperf\Swagger`.
+- Swagger annotations are located in controller classes (e.g., `AppointmentController`).
+- Make sure your database and `.env` are properly configured before running migrations.
+
+---
+
+## Author
+
+**Arsen (Wthing)**  
+3D Designer & Full-Stack Developer  
+[GitHub Profile](https://github.com/Wthing)
