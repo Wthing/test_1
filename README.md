@@ -76,7 +76,7 @@ php bin/hyperf.php server:watch
 
 After starting the server, open the Swagger UI in your browser:
 ```
-http://localhost:9501/swagger/index.html
+http://localhost:9503/swagger/index.html
 ```
 
 ---
