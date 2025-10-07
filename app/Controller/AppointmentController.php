@@ -127,11 +127,7 @@ class AppointmentController extends AbstractController {
             return $response->json(['message' => 'Запись не найдена'], 404);
         }
 
-        if ($appointment->status === 'cancelled') {
-            return $response->json(['message' => 'Запись уже отменена'], 400);
-        }
-
-        $appointment->save();
+        $appointment->delete();
 
         return $response->json(['message' => 'Запись отменена', 'data' => $appointment]);
     }
